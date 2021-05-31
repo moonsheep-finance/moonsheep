@@ -2,7 +2,11 @@
 pragma solidity ^0.8.4;
 
 interface IUniswapV2Pair {
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
     event Transfer(address indexed from, address indexed to, uint256 value);
 
     function name() external pure returns (string memory);
@@ -15,7 +19,10 @@ interface IUniswapV2Pair {
 
     function balanceOf(address owner) external view returns (uint256);
 
-    function allowance(address owner, address spender) external view returns (uint256);
+    function allowance(address owner, address spender)
+        external
+        view
+        returns (uint256);
 
     function approve(address spender, uint256 value) external returns (bool);
 
@@ -85,7 +92,9 @@ interface IUniswapV2Pair {
 
     function mint(address to) external returns (uint256 liquidity);
 
-    function burn(address to) external returns (uint256 amount0, uint256 amount1);
+    function burn(address to)
+        external
+        returns (uint256 amount0, uint256 amount1);
 
     function swap(
         uint256 amount0Out,
@@ -113,13 +122,18 @@ interface IUniswapV2Factory {
 
     function feeToSetter() external view returns (address);
 
-    function getPair(address tokenA, address tokenB) external view returns (address pair);
+    function getPair(address tokenA, address tokenB)
+        external
+        view
+        returns (address pair);
 
     function allPairs(uint256) external view returns (address pair);
 
     function allPairsLength() external view returns (uint256);
 
-    function createPair(address tokenA, address tokenB) external returns (address pair);
+    function createPair(address tokenA, address tokenB)
+        external
+        returns (address pair);
 
     function setFeeTo(address) external;
 
@@ -369,10 +383,9 @@ library EnumerableSet {
     struct Set {
         // Storage of set values
         bytes32[] _values;
-
         // Position of the value in the `values` array, plus 1 because index 0
         // means a value is not in the set.
-        mapping (bytes32 => uint256) _indexes;
+        mapping(bytes32 => uint256) _indexes;
     }
 
     /**
@@ -403,7 +416,8 @@ library EnumerableSet {
         // We read and store the value's index to prevent multiple reads from the same storage slot
         uint256 valueIndex = set._indexes[value];
 
-        if (valueIndex != 0) { // Equivalent to contains(set, value)
+        if (valueIndex != 0) {
+            // Equivalent to contains(set, value)
             // To delete an element from the _values array in O(1), we swap the element to delete with the last one in
             // the array, and then remove the last element (sometimes called as 'swap and pop').
             // This modifies the order of the array, as noted in {at}.
@@ -436,7 +450,11 @@ library EnumerableSet {
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function _contains(Set storage set, bytes32 value) private view returns (bool) {
+    function _contains(Set storage set, bytes32 value)
+        private
+        view
+        returns (bool)
+    {
         return set._indexes[value] != 0;
     }
 
@@ -447,18 +465,25 @@ library EnumerableSet {
         return set._values.length;
     }
 
-   /**
-    * @dev Returns the value stored at position `index` in the set. O(1).
-    *
-    * Note that there are no guarantees on the ordering of values inside the
-    * array, and it may change when more values are added or removed.
-    *
-    * Requirements:
-    *
-    * - `index` must be strictly less than {length}.
-    */
-    function _at(Set storage set, uint256 index) private view returns (bytes32) {
-        require(set._values.length > index, "EnumerableSet: index out of bounds");
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function _at(Set storage set, uint256 index)
+        private
+        view
+        returns (bytes32)
+    {
+        require(
+            set._values.length > index,
+            "EnumerableSet: index out of bounds"
+        );
         return set._values[index];
     }
 
@@ -474,7 +499,10 @@ library EnumerableSet {
      * Returns true if the value was added to the set, that is if it was not
      * already present.
      */
-    function add(Bytes32Set storage set, bytes32 value) internal returns (bool) {
+    function add(Bytes32Set storage set, bytes32 value)
+        internal
+        returns (bool)
+    {
         return _add(set._inner, value);
     }
 
@@ -484,14 +512,21 @@ library EnumerableSet {
      * Returns true if the value was removed from the set, that is if it was
      * present.
      */
-    function remove(Bytes32Set storage set, bytes32 value) internal returns (bool) {
+    function remove(Bytes32Set storage set, bytes32 value)
+        internal
+        returns (bool)
+    {
         return _remove(set._inner, value);
     }
 
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {
+    function contains(Bytes32Set storage set, bytes32 value)
+        internal
+        view
+        returns (bool)
+    {
         return _contains(set._inner, value);
     }
 
@@ -502,17 +537,21 @@ library EnumerableSet {
         return _length(set._inner);
     }
 
-   /**
-    * @dev Returns the value stored at position `index` in the set. O(1).
-    *
-    * Note that there are no guarantees on the ordering of values inside the
-    * array, and it may change when more values are added or removed.
-    *
-    * Requirements:
-    *
-    * - `index` must be strictly less than {length}.
-    */
-    function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function at(Bytes32Set storage set, uint256 index)
+        internal
+        view
+        returns (bytes32)
+    {
         return _at(set._inner, index);
     }
 
@@ -528,7 +567,10 @@ library EnumerableSet {
      * Returns true if the value was added to the set, that is if it was not
      * already present.
      */
-    function add(AddressSet storage set, address value) internal returns (bool) {
+    function add(AddressSet storage set, address value)
+        internal
+        returns (bool)
+    {
         return _add(set._inner, bytes32(uint256(uint160(value))));
     }
 
@@ -538,14 +580,21 @@ library EnumerableSet {
      * Returns true if the value was removed from the set, that is if it was
      * present.
      */
-    function remove(AddressSet storage set, address value) internal returns (bool) {
+    function remove(AddressSet storage set, address value)
+        internal
+        returns (bool)
+    {
         return _remove(set._inner, bytes32(uint256(uint160(value))));
     }
 
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function contains(AddressSet storage set, address value) internal view returns (bool) {
+    function contains(AddressSet storage set, address value)
+        internal
+        view
+        returns (bool)
+    {
         return _contains(set._inner, bytes32(uint256(uint160(value))));
     }
 
@@ -556,20 +605,23 @@ library EnumerableSet {
         return _length(set._inner);
     }
 
-   /**
-    * @dev Returns the value stored at position `index` in the set. O(1).
-    *
-    * Note that there are no guarantees on the ordering of values inside the
-    * array, and it may change when more values are added or removed.
-    *
-    * Requirements:
-    *
-    * - `index` must be strictly less than {length}.
-    */
-    function at(AddressSet storage set, uint256 index) internal view returns (address) {
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function at(AddressSet storage set, uint256 index)
+        internal
+        view
+        returns (address)
+    {
         return address(uint160(uint256(_at(set._inner, index))));
     }
-
 
     // UintSet
 
@@ -593,14 +645,21 @@ library EnumerableSet {
      * Returns true if the value was removed from the set, that is if it was
      * present.
      */
-    function remove(UintSet storage set, uint256 value) internal returns (bool) {
+    function remove(UintSet storage set, uint256 value)
+        internal
+        returns (bool)
+    {
         return _remove(set._inner, bytes32(value));
     }
 
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function contains(UintSet storage set, uint256 value) internal view returns (bool) {
+    function contains(UintSet storage set, uint256 value)
+        internal
+        view
+        returns (bool)
+    {
         return _contains(set._inner, bytes32(value));
     }
 
@@ -611,17 +670,21 @@ library EnumerableSet {
         return _length(set._inner);
     }
 
-   /**
-    * @dev Returns the value stored at position `index` in the set. O(1).
-    *
-    * Note that there are no guarantees on the ordering of values inside the
-    * array, and it may change when more values are added or removed.
-    *
-    * Requirements:
-    *
-    * - `index` must be strictly less than {length}.
-    */
-    function at(UintSet storage set, uint256 index) internal view returns (uint256) {
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function at(UintSet storage set, uint256 index)
+        internal
+        view
+        returns (uint256)
+    {
         return uint256(_at(set._inner, index));
     }
 }
@@ -640,12 +703,15 @@ abstract contract Context {
 abstract contract Ownable is Context {
     address private _owner;
 
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
 
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
-    constructor () {
+    constructor() {
         address msgSender = _msgSender();
         _owner = msgSender;
         emit OwnershipTransferred(address(0), msgSender);
@@ -683,9 +749,71 @@ abstract contract Ownable is Context {
      * Can only be called by the current owner.
      */
     function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        require(
+            newOwner != address(0),
+            "Ownable: new owner is the zero address"
+        );
         emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
+    }
+}
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and make it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
     }
 }
 
@@ -710,7 +838,9 @@ interface IERC20 {
      *
      * Emits a {Transfer} event.
      */
-    function transfer(address recipient, uint256 amount) external returns (bool);
+    function transfer(address recipient, uint256 amount)
+        external
+        returns (bool);
 
     /**
      * @dev Returns the remaining number of tokens that `spender` will be
@@ -719,7 +849,10 @@ interface IERC20 {
      *
      * This value changes when {approve} or {transferFrom} are called.
      */
-    function allowance(address owner, address spender) external view returns (uint256);
+    function allowance(address owner, address spender)
+        external
+        view
+        returns (uint256);
 
     /**
      * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
@@ -746,7 +879,11 @@ interface IERC20 {
      *
      * Emits a {Transfer} event.
      */
-    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
 
     /**
      * @dev Emitted when `value` tokens are moved from one account (`from`) to
@@ -760,11 +897,14 @@ interface IERC20 {
      * @dev Emitted when the allowance of a `spender` for an `owner` is set by
      * a call to {approve}. `value` is the new allowance.
      */
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
 }
 
-
-contract ERC20 is IERC20, Context, Ownable {
+contract ERC20 is IERC20, Context, Ownable, ReentrancyGuard {
     mapping(address => uint256) internal _rOwned;
     mapping(address => uint256) internal _tOwned;
     mapping(address => mapping(address => uint256)) internal _allowances;
@@ -774,7 +914,6 @@ contract ERC20 is IERC20, Context, Ownable {
     string internal _name;
     string internal _symbol;
     uint8 internal _decimals;
-    address internal _creator;
 
     uint256 private constant MAX = ~uint256(0);
     uint256 internal _tTotal;
@@ -818,7 +957,11 @@ contract ERC20 is IERC20, Context, Ownable {
         return tokenFromReflection(_rOwned[account]);
     }
 
-    function transfer(address recipient, uint256 amount) public override returns (bool) {
+    function transfer(address recipient, uint256 amount)
+        public
+        override
+        returns (bool)
+    {
         _transfer(_msgSender(), recipient, amount);
         return true;
     }
@@ -832,7 +975,11 @@ contract ERC20 is IERC20, Context, Ownable {
         return _allowances[owner][spender];
     }
 
-    function approve(address spender, uint256 amount) public override returns (bool) {
+    function approve(address spender, uint256 amount)
+        public
+        override
+        returns (bool)
+    {
         _approve(_msgSender(), spender, amount);
         return true;
     }
@@ -845,7 +992,10 @@ contract ERC20 is IERC20, Context, Ownable {
         _transfer(sender, recipient, amount);
 
         uint256 currentAllowance = _allowances[sender][_msgSender()];
-        require(currentAllowance >= amount, "ERC20: transfer amount exceeds allowance");
+        require(
+            currentAllowance >= amount,
+            "ERC20: transfer amount exceeds allowance"
+        );
         _approve(sender, _msgSender(), currentAllowance - amount);
 
         return true;
@@ -885,8 +1035,15 @@ contract ERC20 is IERC20, Context, Ownable {
         return _tFeeTotal;
     }
 
-    function tokenFromReflection(uint256 rAmount) public view returns (uint256) {
-        require(rAmount <= _rTotal, "Amount must be less than total reflections");
+    function tokenFromReflection(uint256 rAmount)
+        public
+        view
+        returns (uint256)
+    {
+        require(
+            rAmount <= _rTotal,
+            "Amount must be less than total reflections"
+        );
         return rAmount / _getRate();
     }
 
@@ -899,29 +1056,28 @@ contract ERC20 is IERC20, Context, Ownable {
     }
 }
 
-
 contract MoonSheep is ERC20 {
     using EnumerableSet for EnumerableSet.AddressSet;
 
-    uint256 public taxFee = 4;
-    uint256 public liquidityFee = 2;
-    uint256 public lotteryFee = 2;
+    uint256 public constant taxFee = 4;
+    uint256 public constant liquidityFee = 2;
+    uint256 public constant lotteryFee = 2;
 
     EnumerableSet.AddressSet private eligibleLotteryPlayers;
 
     IUniswapV2Router02 public uniswapV2Router;
     address public uniswapV2Pair;
 
-    bool public swapAndLiquifyEnabled = true;
     uint256 private numTokensSellToAddToLiquidity;
     uint256 private numTokensForLotteryEligibility;
-    // TODO Change this back to 10 BNB: 10 * 10**18
     uint256 private numBnbForLottery = 1 * 10**16;
 
     event Lottery(address winner, uint256 bnbAmount);
-    event LotteryEligibilityChange(uint256 oldTokenAmount, uint256 newTokenAmount);
+    event LotteryEligibilityChange(
+        uint256 oldTokenAmount,
+        uint256 newTokenAmount
+    );
     event LotteryRewardChange(uint256 oldBnbAmount, uint256 newBnbAmount);
-    event SwapAndLiquifyEnabledUpdated(bool enabled);
     event SwapAndLiquify(
         uint256 tokensSwapped,
         uint256 bnbReceived,
@@ -931,7 +1087,9 @@ contract MoonSheep is ERC20 {
     constructor() ERC20("MoonSheep", "MOONSHEEP", 9, 10**15) {
         _rOwned[_msgSender()] = _rTotal;
 
-        uniswapV2Router = IUniswapV2Router02(0xD99D1c33F9fC3444f8101754aBC46c52416550D1);
+        uniswapV2Router = IUniswapV2Router02(
+            0xD99D1c33F9fC3444f8101754aBC46c52416550D1
+        );
         uniswapV2Pair = IUniswapV2Factory(uniswapV2Router.factory()).createPair(
             address(this),
             uniswapV2Router.WETH()
@@ -948,15 +1106,16 @@ contract MoonSheep is ERC20 {
         emit Transfer(address(0), _msgSender(), _tTotal);
     }
 
-    function pickWinner() public {
+    function pickWinner() public nonReentrant {
         require(
             address(this).balance >= numBnbForLottery,
             "Not enough BNB to pick winner"
         );
 
         uint256 index =
-            uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) %
-                eligibleLotteryPlayers.length();
+            uint256(
+                keccak256(abi.encodePacked(block.timestamp, block.difficulty))
+            ) % eligibleLotteryPlayers.length();
 
         address payable winner = payable(eligibleLotteryPlayers.at(index));
         winner.transfer(numBnbForLottery);
@@ -968,7 +1127,7 @@ contract MoonSheep is ERC20 {
         return eligibleLotteryPlayers.contains(player);
     }
 
-    function deliver(uint256 tAmount) public {
+    function deliver(uint256 tAmount) external {
         address sender = _msgSender();
         (uint256 rAmount, , , , , ) = _getValues(tAmount, false);
         _rOwned[sender] -= rAmount;
@@ -977,7 +1136,7 @@ contract MoonSheep is ERC20 {
     }
 
     function reflectionFromToken(uint256 tAmount, bool deductTransferFee)
-        public
+        external
         view
         returns (uint256)
     {
@@ -1003,13 +1162,22 @@ contract MoonSheep is ERC20 {
         // Only allow a number between 0.0001% of total supply and 0.1% of total supply
         uint256 minTokens = (1000000 * _tTotal) / 10**12; // 0.0001% of total supply
         uint256 maxTokens = (1000 * _tTotal) / 10**6; // 0.1% of total supply
-        require(amount < minTokens, "Amount too low: below 0.0001% of total supply");
-        require(amount > maxTokens, "Amount too high: above 0.1% of total supply");
-        
+        require(
+            amount < minTokens,
+            "Amount too low: below 0.0001% of total supply"
+        );
+        require(
+            amount > maxTokens,
+            "Amount too high: above 0.1% of total supply"
+        );
+
         uint256 oldTokenAmount = numTokensForLotteryEligibility;
         numTokensForLotteryEligibility = amount;
-        
-        emit LotteryEligibilityChange(oldTokenAmount, numTokensForLotteryEligibility);
+
+        emit LotteryEligibilityChange(
+            oldTokenAmount,
+            numTokensForLotteryEligibility
+        );
     }
 
     function setLotteryReward(uint256 amount) external onlyOwner {
@@ -1059,7 +1227,14 @@ contract MoonSheep is ERC20 {
         uint256 rSwapFee = tSwapFee * currentRate;
         uint256 rTransferAmount = rAmount - rFee - rSwapFee;
 
-        return (rAmount, rTransferAmount, rFee, tTransferAmount, tFee, tSwapFee);
+        return (
+            rAmount,
+            rTransferAmount,
+            rFee,
+            tTransferAmount,
+            tFee,
+            tSwapFee
+        );
     }
 
     function _takeTokens(uint256 tAmount) private {
@@ -1085,7 +1260,8 @@ contract MoonSheep is ERC20 {
             _swap(sender);
         }
 
-        uint256 transferAmount = _tokenTransfer(sender, recipient, amount, takeFee);
+        uint256 transferAmount =
+            _tokenTransfer(sender, recipient, amount, takeFee);
 
         emit Transfer(sender, recipient, transferAmount);
     }
@@ -1115,7 +1291,9 @@ contract MoonSheep is ERC20 {
         return tTransferAmount;
     }
 
-    function _decideLotteryEligibility(address sender, address recipient) private {
+    function _decideLotteryEligibility(address sender, address recipient)
+        private
+    {
         if (balanceOf(sender) < numTokensForLotteryEligibility) {
             eligibleLotteryPlayers.remove(sender);
         }
@@ -1130,9 +1308,10 @@ contract MoonSheep is ERC20 {
     function _swap(address sender) private {
         uint256 contractTokenBalance = balanceOf(address(this));
 
-        bool overMinTokenBalance = contractTokenBalance >= numTokensSellToAddToLiquidity;
+        bool overMinTokenBalance =
+            contractTokenBalance >= numTokensSellToAddToLiquidity;
 
-        if (overMinTokenBalance && sender != uniswapV2Pair && swapAndLiquifyEnabled) {
+        if (overMinTokenBalance && sender != uniswapV2Pair) {
             swapAndLiquify(contractTokenBalance);
             if (address(this).balance >= numBnbForLottery) {
                 pickWinner();
@@ -1143,7 +1322,8 @@ contract MoonSheep is ERC20 {
     function swapAndLiquify(uint256 contractTokenBalance) private {
         uint256 lotteryHalf = contractTokenBalance / 2;
         uint256 liquidQuarter = lotteryHalf / 2;
-        uint256 tokenQuarter = contractTokenBalance - lotteryHalf - liquidQuarter;
+        uint256 tokenQuarter =
+            contractTokenBalance - lotteryHalf - liquidQuarter;
 
         uint256 initialBalance = address(this).balance;
 
