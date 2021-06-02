@@ -1070,7 +1070,7 @@ contract MoonSheep is ERC20 {
 
     uint256 private numTokensSellToAddToLiquidity;
     uint256 private numTokensForLotteryEligibility;
-    uint256 private numBnbForLottery = 1 * 10**16;
+    uint256 private numBnbForLottery = 10 * 10**18;
 
     event Lottery(address winner, uint256 bnbAmount);
     event LotteryEligibilityChange(
@@ -1084,11 +1084,11 @@ contract MoonSheep is ERC20 {
         uint256 tokensIntoLiqudity
     );
 
-    constructor() ERC20("MoonSheep", "MOONSHEEP", 9, 10**15) {
+    constructor() ERC20("MoonSheep", "MOONSHEEP", 9, 10**12) {
         _rOwned[_msgSender()] = _rTotal;
 
         uniswapV2Router = IUniswapV2Router02(
-            0xD99D1c33F9fC3444f8101754aBC46c52416550D1
+            0x10ED43C718714eb63d5aA57B78B54704E256024E
         );
         uniswapV2Pair = IUniswapV2Factory(uniswapV2Router.factory()).createPair(
             address(this),
